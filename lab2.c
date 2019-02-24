@@ -58,12 +58,13 @@ int main()
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
     exit(1);
   }
-
+  /* initial the screen */
+  Custum_Initial();
   /* Draw rows of asterisks across the top and bottom of the screen */
   for (col = 0 ; col < 64 ; col++) {
     fbputchar('*', 0, col);
     fbputchar('*',11,col);
-    fbputchar('*', 21, col);
+    fbputchar('*', 23, col);
   }
   
   /* Open the keyboard */
@@ -95,8 +96,7 @@ int main()
 
   /* Start the network thread */
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
-   /* initial the screen */
-  Custum_Initial();
+
   /* Look for and handle keypresses */
   currentRow=INIT_ROW;
   currentCol=INIT_COL;
