@@ -129,7 +129,11 @@ int main()
 
       if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
-         dispCharacter = keyValue(packet.keycode[0]);
+	 if (!packet.keycode[1]){
+           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
+	 }
+	 else{
+           continue; }
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
          flag = JudgeClass(dispCharacter);
          if (flag==1){ /* if Enter is pressed */
