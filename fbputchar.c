@@ -297,7 +297,7 @@ if (modifiers == 0x02 || modifiers == 0x20){
    case KEY_O:
       return 'O';
       break;
-   case KEY_P:slash
+   case KEY_P:
       return 'P';
       break;
    case KEY_Q:
@@ -639,9 +639,6 @@ if (modifiers == 0x02 || modifiers == 0x20){
    case KEY_KPASTERISK:
       return '*';
       break;
-   case KEY_LEFTBRACE:
-      return '[';
-      break;
    case KEY_KPMINUS:
       return '-';
       break;
@@ -662,7 +659,7 @@ if (modifiers == 0x02 || modifiers == 0x20){
       break;
    case KEY_KP4:
       return '4';
-      break
+      break;
    case KEY_KP5:
       return '5';
       break;
@@ -677,7 +674,7 @@ if (modifiers == 0x02 || modifiers == 0x20){
       break;
    case KEY_KP9:
       return '9';
-      break
+      break;
    case KEY_KP0:
       return '0';
       break;
