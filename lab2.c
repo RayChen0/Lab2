@@ -22,6 +22,9 @@
 #define SERVER_PORT 42000
 
 #define BUFFER_SIZE 128
+#define MAX_PER_ROW 60
+#define INIT_ROW 21
+#define INIT_COL 2
 
 /*
  * References:
@@ -42,7 +45,7 @@ void *network_thread_f(void *);
 
 int main()
 {
-  int err, col;
+  int err, col, currentCol, currentRow;
   char dispCharacter;
   struct sockaddr_in serv_addr;
 
@@ -58,11 +61,10 @@ int main()
   /* Draw rows of asterisks across the top and bottom of the screen */
   for (col = 0 ; col < 64 ; col++) {
     fbputchar('*', 0, col);
-    fbputchar('*', 23, col);
+    fbputchar('*',11,col);
+    fbputchar('*', 21, col);
   }
-
-  fbputs("Hello CSEE 4840 World!", 4, 10);
-
+  
   /* Open the keyboard */
   if ( (keyboard = openkeyboard(&endpoint_address)) == NULL ) {
     fprintf(stderr, "Did not find a keyboard\n");
@@ -102,11 +104,22 @@ int main()
       sprintf(keystate, "%02x %02x %02x", packet.modifiers, packet.keycode[0],
 	      packet.keycode[1]);
       printf("%s\n", keystate);
+      currentRow=INIT_ROW;
+      currentCol=INIT_COL;
+      fbputs(keystate, 6, 0);
+	    
       if (packet.keycode[0]!=0){
          dispCharacter = keyValue(packet.keycode[0]);
-         fbputchar(dispCharacter, 20, 20);
+         fbputchar(dispCharacter, currentRow, currentCol);
+	 currentCol++;
       }
-      fbputs(keystate, 6, 0);
+
+      if (currentRow > MAX_PER_ROW)
+      {
+	      currentRow++;
+	      currentCol=INIT_COL;
+      }
+	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	break;
       }
