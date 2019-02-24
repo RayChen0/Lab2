@@ -95,7 +95,7 @@ int main()
   /* Start the network thread */
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
    /* initial the screen */
-  initial();
+  Custum_Initial();
   /* Look for and handle keypresses */
   currentRow=INIT_ROW;
   currentCol=INIT_COL;
@@ -136,7 +136,7 @@ int main()
   return 0;
 }
 
-void initial()
+void Custum_Initial()
 {
   int col, row;
   for (row = 0; row < 23; row++){
