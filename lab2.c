@@ -23,7 +23,7 @@
 
 #define BUFFER_SIZE 128
 #define MAX_PER_ROW 60
-#define INIT_ROW 21
+#define INIT_ROW 22
 #define INIT_COL 2
 
 /*
@@ -94,8 +94,10 @@ int main()
 
   /* Start the network thread */
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
-
+   
   /* Look for and handle keypresses */
+  currentRow=INIT_ROW;
+  currentCol=INIT_COL;
   for (;;) {
     libusb_interrupt_transfer(keyboard, endpoint_address,
 			      (unsigned char *) &packet, sizeof(packet),
@@ -104,8 +106,6 @@ int main()
       sprintf(keystate, "%02x %02x %02x", packet.modifiers, packet.keycode[0],
 	      packet.keycode[1]);
       printf("%s\n", keystate);
-      currentRow=INIT_ROW;
-      currentCol=INIT_COL;
       fbputs(keystate, 6, 0);
 	    
       if (packet.keycode[0]!=0){
