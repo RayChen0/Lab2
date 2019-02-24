@@ -106,6 +106,8 @@ int main()
   /* Look for and handle keypresses */
   currentRow=INIT_ROW;
   currentCol=INIT_COL;
+  writeStringHead = writeString;
+  writeHead = writeString;
   for (;;) {
     libusb_interrupt_transfer(keyboard, endpoint_address,
 			      (unsigned char *) &packet, sizeof(packet),
@@ -115,16 +117,15 @@ int main()
 	      packet.keycode[1]);
       printf("%s\n", keystate);
       fbputs(keystate, 6, 0);
-      writeStringHead = writeString;
-      writeHead = writeString;
+
       if (packet.keycode[0]!=0){
-	 printf("count = %d, col= %d\n", count, currentCol);
+	 printf("count = %d, col= , row= %d%d\n", count, currentCol, currentRow);
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
 	 writeString[count] = dispCharacter;
 	 currentCol++;
 	 count++;
-	 printf("count2 = %d, col2= %d\n", count, currentCol);
+	 printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
 	 /* writeString++; */
       }
 
