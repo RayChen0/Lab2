@@ -124,6 +124,7 @@ int main()
 	 writeString[count] = dispCharacter;
 	 currentCol++;
 	 count++;
+	 printf("count2 = %d, col2= %d\n", count, currentCol);
 	 /* writeString++; */
       }
 
@@ -134,14 +135,15 @@ int main()
       }
 
       /* scroll */
+      if (count>2*MAX_PER_ROW && count % MAX_PER_ROW==0)
+	    currentRow = 22; 
       if (count>2*MAX_PER_ROW && count % MAX_PER_ROW==1){
           InitiateRow(21, 22);
-	  writeStringHead=&writeString[count-MAX_PER_ROW];
+	  writeStringHead=&writeString[count-MAX_PER_ROW-1];
 	  for(i=0;i<MAX_PER_ROW;i++){
             fbputchar(*writeStringHead, 21, i);
             writeStringHead++;
 	  }
-	    currentRow = 22;
 	    currentCol=INIT_COL;
       }
 	    
