@@ -129,26 +129,23 @@ int main()
 	 /* writeString++; */
       }
 
-      if (currentCol > MAX_PER_ROW-1)
+      if (currentCol > MAX_PER_ROW-1 && currentRow==22){
+        currentCol=INIT_COL;
+	      /* scroll */
+	InitiateRow(21, 22);
+	writeStringHead=&writeString[count-MAX_PER_ROW-1];
+	for(i=0;i<MAX_PER_ROW;i++){
+        fbputchar(*writeStringHead, 21, i);
+        writeStringHead++;
+	}
+      }
+      else if (currentCol > MAX_PER_ROW-1)
       {
 	currentRow=currentRow+1;
         currentCol=INIT_COL;
       }
 
-      /* scroll */
-      if (count>MAX_PER_ROW && count % MAX_PER_ROW==0){
-	    currentRow = 22; 
-      }
-      if (count>2*MAX_PER_ROW && count % MAX_PER_ROW==1){
-          InitiateRow(21, 22);
-	  writeStringHead=&writeString[count-MAX_PER_ROW-1];
-	  for(i=0;i<MAX_PER_ROW;i++){
-            fbputchar(*writeStringHead, 21, i);
-            writeStringHead++;
-	  }
-	    currentCol=INIT_COL;
-      }
-	    
+
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	break;
       }
