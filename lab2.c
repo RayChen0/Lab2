@@ -123,6 +123,7 @@ int main()
 	 currentCol++;
 	 count++;
 	 writeString[count] = dispCharacter;
+	 printf("count = %d\n", count);
 	 /* writeString++; */
       }
 
