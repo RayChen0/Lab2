@@ -114,10 +114,10 @@ int main()
 	 currentCol++;
       }
 
-      if (currentRow > MAX_PER_ROW)
+      if (currentCol > MAX_PER_ROW)
       {
-	      currentRow++;
-	      currentCol=INIT_COL;
+	      currentCol++;
+	      currentRow=INIT_Row;
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
