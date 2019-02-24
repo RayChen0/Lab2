@@ -122,7 +122,7 @@ int main()
          fbputchar(dispCharacter, currentRow, currentCol);
 	 currentCol++;
 	 *writeString = dispCharacter;
-	 writeString++;
+	 /* writeString++; */
 	 count++;
       }
 
