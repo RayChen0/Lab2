@@ -24,7 +24,7 @@ if __name__ == "__main__":
     CONNECTION_LIST = []
     RECV_BUFFER = 4096 # Advisable to keep it as an exponent of 2
     PORT = 42000
-    HOST = '128.59.64.144'
+    HOST = '192.168.1.1'
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind((HOST, PORT))
