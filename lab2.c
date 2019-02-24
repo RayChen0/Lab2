@@ -119,7 +119,7 @@ int main()
       fbputs(keystate, 6, 0);
 
       if (packet.keycode[0]!=0){
-	 printf("count = %d, col= , row= %d%d\n", count, currentCol, currentRow);
+	 printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
 	 writeString[count] = dispCharacter;
