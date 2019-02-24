@@ -68,7 +68,7 @@ int main()
   struct usb_keyboard_packet packet;
   int transferred;
   char keystate[12];
-
+  int row2=HIG_BOUND_SEC;
 
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
@@ -134,8 +134,12 @@ int main()
          flag = JudgeClass(dispCharacter);
          if (flag==1){ /* if Enter is pressed */
            /* Assume the string to write is less than BUFFER_SIZE */
-           write(sockfd, writeString, lenstr(writeString));
-           writeString = NULL;
+           write(sockfd, writeString, lenstr(writeString)); /* send to server*/
+           /* to table display*/
+           fbputs(writeString,row2,0);
+           row2++;
+           writeString[0] = '\0';
+
          }
          else if (flag==0){
            fbputchar(dispCharacter, currentRow, currentCol);
@@ -220,13 +224,8 @@ void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
 
 /* Move all element in a string forward n, others become '\0' */
 char *MoveString(char toBeMoveString[], int moveLength){
-  char *movedString;
-  int length = lenstr(toBeMoveString);
-  int i;
-  for (i=0; i<length-moveLength; i++){
-    movedString[i]=toBeMoveString[i+moveLength];
-  }
-  movedString[i]='\0';
+
+  movedString=&toBeMoveString[moveLength];
   return movedString;
 }
 
