@@ -26,6 +26,12 @@
 #define INIT_ROW 21
 #define INIT_COL 0
 #define MAXROW 23
+#define HIG_BOUND_FIR 0
+#define LOW_BOUND_FIR 9
+#define HIG_BOUND_SEC 11
+#define LOW_BOUND_SEC 20
+#define HIG_BOUND_THI 22
+#define LOW_BOUND_THI 23
 
 /*
  * References:
@@ -44,6 +50,9 @@ pthread_t network_thread;
 void *network_thread_f(void *);
 void Custum_Initial();
 void InitiateRow(int, int);
+char *MoveString(char *, int);
+void ActScroll(int, int, int, char *);
+
 
 int main()
 {
@@ -54,8 +63,7 @@ int main()
   char *writeHead;
   struct sockaddr_in serv_addr;
   int count=0;
-  int i;
-
+  int i, flag;
   struct usb_keyboard_packet packet;
   int transferred;
   char keystate[12];
@@ -117,37 +125,47 @@ int main()
       printf("%s\n", keystate);
       fbputs(keystate, 6, 0);
 
-	    
       if (packet.keycode[0]!=0){
-	 printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
+	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
          dispCharacter = keyValue(packet.keycode[0]);
-         fbputchar(dispCharacter, currentRow, currentCol);
-	 writeString[count] = dispCharacter;
-	 currentCol++;
-	 count++;
-	 printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
-	 /* writeString++; */
+         /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
+         flag = JudgeClass(dispCharacter);
+         if (flag==1){ /* if Enter is pressed */
+           /* Assume the string to write is less than BUFFER_SIZE */
+           write(sockfd, writeString, lenstr(writeString));
+           writeString = "";
+         }
+         else if (flag==0){
+           fbputchar(dispCharacter, currentRow, currentCol);
+	         writeString[count] = dispCharacter;
+	         currentCol++;
+	         count++;
+	         printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
+         }
+         else{
+           /*Do other function here*/
+         }
       }
 
       if (currentCol > MAX_PER_ROW-1 && currentRow==22){
         currentCol=INIT_COL;
 	      /* scroll */
-	InitiateRow(22, 23);
-	writeStringHead=&writeString[count-MAX_PER_ROW];
-	for(i=0;i<MAX_PER_ROW;i++){
-        fbputchar(*writeStringHead, 22, i);
-        writeStringHead++;
-	}
+	      InitiateRow(HIG_BOUND_THI, LOW_BOUND_THI);
+	      writeStringHead=&writeString[count-MAX_PER_ROW];
+	      for(i=0;i<MAX_PER_ROW;i++){
+           fbputchar(*writeStringHead, 22, i);
+           writeStringHead++;
+	       }
       }
       else if (currentCol > MAX_PER_ROW-1)
       {
-	currentRow=currentRow+1;
+	      currentRow=currentRow+1;
         currentCol=INIT_COL;
       }
 
 
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
-	break;
+	    break;
       }
     }
   }
@@ -180,18 +198,65 @@ void InitiateRow(int min, int max){
   }	
 }
 
+
+
+/* Scroll the screen if condition matches*/
+void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
+  /* myString should already been modified as exactly like we want to show in the screen*/
+   int lineNum;
+   int count=0;
+   int row, col;
+   InitiateRow(minRow, maxRow);
+   lineNum = maxRow - minRow;
+   for (row=minRow;row<maxRow;row++){
+      for (col=0;col<colPerRow;col++){
+        fbputchar(myString[count],row,col);
+        count++;
+      }
+   }   
+}
+
+/* Move all element in a string forward n, others become '\0' */
+char *MoveString(char toBeMoveString[], int moveLength){
+  char movedString[];
+  int length = lenstr(toBeMoveString);
+  for (i=0; i<length-moveLength; i++){
+    movedString[i]=toBeMoveString[i+moveLength];
+  }
+  movedString[i]='\0';
+  return movedString;
+}
+
+int judge = JudgeClass(char dispCharacter){
+  switch (dispCharacter){
+    case 0x28:
+      return 1;
+      break;
+    case 0x58:
+      return 1;
+      break;
+  }
+}
+
+
 void *network_thread_f(void *ignored)
 {
   char recvBuf[BUFFER_SIZE];
   char tempBuf1[MAX_PER_ROW+1];
   char tempBuf2[MAX_PER_ROW+1];
+  char myBuff[700];
   int n;
+  int countLength=0;
   int i;
   int tempRow=1;
   /* Read: Receive data */
+  /* Assume the length is smaller than BUFFER_SIZE*/
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
     printf("%s", recvBuf);
+    for (i=0;i<lenstr(recvBuf);i++){
+      myBuff[i+countLength]=recvBuf[i];
+    }
     if (n < MAX_PER_ROW || n==MAX_PER_ROW){  
       fbputs(recvBuf, tempRow, 0);
       tempRow++;
@@ -211,8 +276,14 @@ void *network_thread_f(void *ignored)
       tempRow++;
     }	  
     /* Scroll up when it is full */
+    if (tempRow>LOW_BOUND_FIR){
+      myBuff = MoveString(myBuff,MAX_PER_ROW);
+      ActScroll(HIG_BOUND_FIR,LOW_BOUND_FIR,MAX_PER_ROW, myBuff);
+    }
   }
   
   return NULL;
 }
+
+
 
