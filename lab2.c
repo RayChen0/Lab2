@@ -143,6 +143,7 @@ void Custum_Initial()
   for (row = 0; row < 23; row++){
     for (col = 0 ; col < 64 ; col++) {
       fbputchar(' ', row, col);
+    }
   }	
 }
 
