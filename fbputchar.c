@@ -249,9 +249,9 @@ static unsigned char font[] = {
 
 
 char keyValue(int modifiers, int keyPressed1){
-switch (keyPressed1){
+if (modifiers == 0x02 || modifiers == 0x20){
+   switch (keyPressed1){
 /* Define letters here */
-   if (modifiers == 0x02 || modifiers == 0x20){
    case KEY_A:
       return 'A';
       break;
@@ -297,7 +297,7 @@ switch (keyPressed1){
    case KEY_O:
       return 'O';
       break;
-   case KEY_P:
+   case KEY_P:slash
       return 'P';
       break;
    case KEY_Q:
@@ -390,12 +390,14 @@ switch (keyPressed1){
       break;
    case KEY_DOT:
       return '>';
-      break
+      break;
    case KEY_SLASH:
       return '?';
       break;
    }
+}
    else{
+   switch(keyPressed1){
    case KEY_A:
       return 'a';
       break;
@@ -546,91 +548,91 @@ switch (keyPressed1){
       break;
    case KEY_DOT:
       return '.';
-      break
+      break;
    case KEY_SLASH:
       return '/';
       break;
    case KEY_CAPSLOCK:
       return 0x39;
-      break
+      break;
    case KEY_F1:
       return 0x3a;
-      break
+      break;
    case KEY_F2:
       return 0x3b;
-      break
+      break;
    case KEY_F3:
       return 0x3c;
-      break
+      break;
    case KEY_F4:
       return 0x3d;
-      break
+      break;
    case KEY_F5:
       return 0x3e;
-      break
+      break;
    case KEY_F6:
       return 0x3f;
-      break
+      break;
    case KEY_F7:
       return 0x40;
-      break
+      break;
    case KEY_F8:
       return 0x41;
-      break
+      break;
    case KEY_F9:
       return 0x42;
-      break
+      break;
    case KEY_F10:
       return 0x43;
-      break
+      break;
    case KEY_F11:
       return 0x44;
-      break
+      break;
    case KEY_F12:
       return 0x45;
-      break
+      break;
    case KEY_INSERT:
       return 0x49;
-      break
+      break;
    case KEY_HOME:
       return 0x4a;
-      break
+      break;
    case KEY_PAGEUP:
       return 0x4b;
-      break
+      break;
    case KEY_DELETE:
       return 0x4c;
-      break
+      break;
    case KEY_END:
       return 0x4d;
-      break
+      break;
    case KEY_PAGEDOWN:
       return 0x4e;
-      break
+      break;
    case KEY_RIGHT:
       return 0x4f;
-      break
+      break;
    case KEY_LEFT:
       return 0x50;
-      break
+      break;
    case KEY_DOWN:
       return 0x51;
-      break
+      break;
    case KEY_UP:
       return 0x52;
-      break
+      break;
    case KEY_NUMLOCK:
       return 0x53;
-      break
+      break;
    case KEY_MUTE:
       return 0x7f;
-      break
+      break;
    case KEY_VOLUMEUP:
       return 0x80;
-      break
+      break;
    case KEY_VOLUMEDOWN:
       return 0x81;
-      break
+      break;
    case KEY_KPSLASH:
       return '/';
       break;
@@ -685,8 +687,8 @@ switch (keyPressed1){
    case KEY_SPACE:
       return ' ';
       break;
-   }
    default:
       return ' ';
    }
+ }
 }
