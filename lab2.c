@@ -52,6 +52,7 @@ void Custum_Initial();
 void InitiateRow(int, int);
 char *MoveString(char *, int);
 void ActScroll(int, int, int, char *);
+int JudgeClass(char);
 
 
 int main()
@@ -67,6 +68,7 @@ int main()
   struct usb_keyboard_packet packet;
   int transferred;
   char keystate[12];
+
 
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
@@ -133,7 +135,7 @@ int main()
          if (flag==1){ /* if Enter is pressed */
            /* Assume the string to write is less than BUFFER_SIZE */
            write(sockfd, writeString, lenstr(writeString));
-           writeString = "";
+           writeString = NULL;
          }
          else if (flag==0){
            fbputchar(dispCharacter, currentRow, currentCol);
@@ -218,8 +220,9 @@ void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
 
 /* Move all element in a string forward n, others become '\0' */
 char *MoveString(char toBeMoveString[], int moveLength){
-  char movedString[];
+  char *movedString;
   int length = lenstr(toBeMoveString);
+  int i;
   for (i=0; i<length-moveLength; i++){
     movedString[i]=toBeMoveString[i+moveLength];
   }
@@ -277,13 +280,11 @@ void *network_thread_f(void *ignored)
     }	  
     /* Scroll up when it is full */
     if (tempRow>LOW_BOUND_FIR){
-      myBuff = MoveString(myBuff,MAX_PER_ROW);
+      strcpy(myBuff, MoveString(myBuff,MAX_PER_ROW));
       ActScroll(HIG_BOUND_FIR,LOW_BOUND_FIR,MAX_PER_ROW, myBuff);
     }
   }
   
   return NULL;
 }
-
-
 
