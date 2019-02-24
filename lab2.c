@@ -23,7 +23,7 @@
 
 #define BUFFER_SIZE 128
 #define MAX_PER_ROW 60
-#define INIT_ROW 20
+#define INIT_ROW 21
 #define INIT_COL 2
 
 /*
@@ -118,8 +118,8 @@ int main()
 
       if (currentCol > MAX_PER_ROW)
       {
-	      currentCol=currentCol+2;
-	      currentRow=INIT_ROW;
+	      currentRow=currentRow+1;
+	      currentCol=INIT_COL;
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
