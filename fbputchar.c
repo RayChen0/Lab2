@@ -248,7 +248,7 @@ static unsigned char font[] = {
 };
 
 
-char keyValue(int modifiers, keyPressed1){
+char keyValue(int modifiers, int keyPressed1){
 switch (keyPressed1){
 /* Define letters here */
    if (modifiers == 0x02 || modifiers == 0x20){
@@ -530,13 +530,13 @@ switch (keyPressed1){
       return ']';
       break;
    case KEY_BACKSLASH:
-      return '\';
+      return 92;
       break;
    case KEY_SEMICOLON:
       return ';';
       break;
    case KEY_APOSTROPHE:
-      return ''';
+      return 39;
       break;
    case KEY_GRAVE:
       return '`';
