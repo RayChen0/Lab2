@@ -41,6 +41,7 @@ uint8_t endpoint_address;
 
 pthread_t network_thread;
 void *network_thread_f(void *);
+void Custum_Initial();
 
 
 int main()
