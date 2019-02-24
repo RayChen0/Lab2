@@ -13,7 +13,7 @@ def broadcast_data (sock, message):
     # Do not send the message back to whoever sent it
     for socket in CONNECTION_LIST:
 	try:
-            if socket != server_socket# and socket != sock :
+            if socket != server_socket and socket != sock :
                 socket.send(message)
 	except:
 	    continue
