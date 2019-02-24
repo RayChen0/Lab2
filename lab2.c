@@ -25,6 +25,7 @@
 #define MAX_PER_ROW 60
 #define INIT_ROW 21
 #define INIT_COL 2
+#define MAXROW 23
 
 /*
  * References:
@@ -121,6 +122,7 @@ int main()
 	      currentRow=currentRow+1;
 	      currentCol=INIT_COL;
       }
+	    
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	break;
