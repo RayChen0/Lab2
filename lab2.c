@@ -121,7 +121,7 @@ int main()
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
 	 currentCol++;
-	 *writeString = dispCharacter;
+	 /**writeString = dispCharacter;*/
 	 /* writeString++; */
 	 count++;
       }
