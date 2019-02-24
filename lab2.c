@@ -49,7 +49,7 @@ int main()
 {
   int err, col, currentCol, currentRow;
   char dispCharacter;
-  char *writeString;
+  char[500] writeString;
   char *writeStringHead;
   char *writeHead;
   struct sockaddr_in serv_addr;
@@ -121,9 +121,9 @@ int main()
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
 	 currentCol++;
-	 /**writeString = dispCharacter;*/
-	 /* writeString++; */
 	 count++;
+	 writeString[count] = dispCharacter;
+	 /* writeString++; */
       }
 
       if (currentCol > MAX_PER_ROW)
