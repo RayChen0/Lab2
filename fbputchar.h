@@ -6,6 +6,16 @@
 #define FBOPEN_VSCREENINFO -3  /* Couldn't read the variable info */
 #define FBOPEN_MMAP -4         /* Couldn't mmap the framebuffer memory */
 #define FBOPEN_BPP -5          /* Unexpected bits-per-pixel */
+
+#define KEY_MOD_LCTRL  0x01
+#define KEY_MOD_LSHIFT 0x02
+#define KEY_MOD_LALT   0x04
+#define KEY_MOD_LMETA  0x08
+#define KEY_MOD_RCTRL  0x10
+#define KEY_MOD_RSHIFT 0x20
+#define KEY_MOD_RALT   0x40
+#define KEY_MOD_RMETA  0x80
+
 #define KEY_A 0x04 // Keyboard a and A
 #define KEY_B 0x05 // Keyboard b and B
 #define KEY_C 0x06 // Keyboard c and C
@@ -76,9 +86,6 @@
 #define KEY_F11 0x44 // Keyboard F11
 #define KEY_F12 0x45 // Keyboard F12
 
-#define KEY_SYSRQ 0x46 // Keyboard Print Screen
-#define KEY_SCROLLLOCK 0x47 // Keyboard Scroll Lock
-#define KEY_PAUSE 0x48 // Keyboard Pause
 #define KEY_INSERT 0x49 // Keyboard Insert
 #define KEY_HOME 0x4a // Keyboard Home
 #define KEY_PAGEUP 0x4b // Keyboard Page Up
@@ -89,8 +96,8 @@
 #define KEY_LEFT 0x50 // Keyboard Left Arrow
 #define KEY_DOWN 0x51 // Keyboard Down Arrow
 #define KEY_UP 0x52 // Keyboard Up Arrow
-
 #define KEY_NUMLOCK 0x53 // Keyboard Num Lock and Clear
+
 #define KEY_KPSLASH 0x54 // Keypad /
 #define KEY_KPASTERISK 0x55 // Keypad *
 #define KEY_KPMINUS 0x56 // Keypad -
@@ -108,35 +115,6 @@
 #define KEY_KP0 0x62 // Keypad 0 and Insert
 #define KEY_KPDOT 0x63 // Keypad . and Delete
 
-#define KEY_102ND 0x64 // Keyboard Non-US \ and |
-#define KEY_COMPOSE 0x65 // Keyboard Application
-#define KEY_POWER 0x66 // Keyboard Power
-#define KEY_KPEQUAL 0x67 // Keypad =
-
-#define KEY_F13 0x68 // Keyboard F13
-#define KEY_F14 0x69 // Keyboard F14
-#define KEY_F15 0x6a // Keyboard F15
-#define KEY_F16 0x6b // Keyboard F16
-#define KEY_F17 0x6c // Keyboard F17
-#define KEY_F18 0x6d // Keyboard F18
-#define KEY_F19 0x6e // Keyboard F19
-#define KEY_F20 0x6f // Keyboard F20
-#define KEY_F21 0x70 // Keyboard F21
-#define KEY_F22 0x71 // Keyboard F22
-#define KEY_F23 0x72 // Keyboard F23
-#define KEY_F24 0x73 // Keyboard F24
-
-#define KEY_OPEN 0x74 // Keyboard Execute
-#define KEY_HELP 0x75 // Keyboard Help
-#define KEY_PROPS 0x76 // Keyboard Menu
-#define KEY_FRONT 0x77 // Keyboard Select
-#define KEY_STOP 0x78 // Keyboard Stop
-#define KEY_AGAIN 0x79 // Keyboard Again
-#define KEY_UNDO 0x7a // Keyboard Undo
-#define KEY_CUT 0x7b // Keyboard Cut
-#define KEY_COPY 0x7c // Keyboard Copy
-#define KEY_PASTE 0x7d // Keyboard Paste
-#define KEY_FIND 0x7e // Keyboard Find
 #define KEY_MUTE 0x7f // Keyboard Mute
 #define KEY_VOLUMEUP 0x80 // Keyboard Volume Up
 #define KEY_VOLUMEDOWN 0x81 // Keyboard Volume Down
