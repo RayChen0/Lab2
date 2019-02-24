@@ -49,7 +49,7 @@ int main()
 {
   int err, col, currentCol, currentRow;
   char dispCharacter;
-  char[500] writeString;
+  char writeString[500];
   char *writeStringHead;
   char *writeHead;
   struct sockaddr_in serv_addr;
