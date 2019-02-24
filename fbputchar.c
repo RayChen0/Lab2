@@ -366,7 +366,5 @@ switch (keyPressed1){
 		
    default:
       return ' ';
-
-}
- }
+   }
 }
