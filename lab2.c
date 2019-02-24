@@ -134,17 +134,14 @@ int main()
       }
 
       /* scroll */
-      if (count==BUFFER_SIZE){
-	for (i=0;i<MAX_PER_ROW;i++)
-	  writeStringHead++;
-      }
-      else if (count>BUFFER_SIZE && count % MAX_PER_ROW==0){
+      if (count>MAX_PER_ROW && count % MAX_PER_ROW==0){
           InitiateRow(21, 22);
+	  writeStringHead=&writeString[count-MAX_PER_ROW];
 	  for(i=0;i<MAX_PER_ROW;i++){
-	  writeStringHead++;
-          fbputchar(*writeStringHead, 21, i);
-          currentRow = 22;
+	    writeStringHead++;
+            fbputchar(*writeStringHead, 21, i);
 	  }
+	    currentRow = 22;
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
