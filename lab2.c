@@ -138,10 +138,11 @@ int main()
           InitiateRow(21, 22);
 	  writeStringHead=&writeString[count-MAX_PER_ROW];
 	  for(i=0;i<MAX_PER_ROW;i++){
-	    writeStringHead++;
             fbputchar(*writeStringHead, 21, i);
+            writeStringHead++;
 	  }
 	    currentRow = 22;
+	    currentCol=INIT_COL;
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
