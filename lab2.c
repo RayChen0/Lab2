@@ -118,13 +118,12 @@ int main()
       writeStringHead = writeString;
       writeHead = writeString;
       if (packet.keycode[0]!=0){
+	 printf("count = %d, col= %d\n", count, currentCol);
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
+	 writeString[count] = dispCharacter;
 	 currentCol++;
 	 count++;
-	 writeString[count] = dispCharacter;
-	 printf("count = %d, col= %d\n", count, currentCol);
-	      
 	 /* writeString++; */
       }
 
@@ -135,7 +134,7 @@ int main()
       }
 
       /* scroll */
-      if (count>MAX_PER_ROW && count % MAX_PER_ROW==1){
+      if (count>2*MAX_PER_ROW && count % MAX_PER_ROW==1){
           InitiateRow(21, 22);
 	  writeStringHead=&writeString[count-MAX_PER_ROW];
 	  for(i=0;i<MAX_PER_ROW;i++){
