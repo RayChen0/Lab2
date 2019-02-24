@@ -22,9 +22,9 @@
 #define SERVER_PORT 42000
 
 #define BUFFER_SIZE 128
-#define MAX_PER_ROW 60
+#define MAX_PER_ROW 64
 #define INIT_ROW 21
-#define INIT_COL 2
+#define INIT_COL 0
 #define MAXROW 23
 
 /*
@@ -43,13 +43,18 @@ uint8_t endpoint_address;
 pthread_t network_thread;
 void *network_thread_f(void *);
 void Custum_Initial();
-
+void InitiateRow(int, int);
 
 int main()
 {
   int err, col, currentCol, currentRow;
   char dispCharacter;
+  char *writeString;
+  char *writeStringHead;
+  char *writeHead;
   struct sockaddr_in serv_addr;
+  int count=0;
+  int i;
 
   struct usb_keyboard_packet packet;
   int transferred;
@@ -110,19 +115,35 @@ int main()
 	      packet.keycode[1]);
       printf("%s\n", keystate);
       fbputs(keystate, 6, 0);
-	    
+      writeStringHead = writeString;
+      writeHead = writeString;
       if (packet.keycode[0]!=0){
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, currentRow, currentCol);
 	 currentCol++;
+	 *writeString = dispCharacter;
+	 writeSting++;
+	 count++;
       }
 
       if (currentCol > MAX_PER_ROW)
       {
-	      currentRow=currentRow+1;
-	      currentCol=INIT_COL;
+	currentRow=currentRow+1;
+        currentCol=INIT_COL;
       }
-	    
+
+      /* scroll */
+      if (count==BUFFER_SIZE){
+	for (i=0;i<MAX_PER_ROW;i++)
+	  writeStringHead++;
+      }
+      else if (count>BUFFER_SIZE && count % MAX_PER_ROW==0){
+          InitiateRow(21, 22);
+	  for(i=0;i<MAX_PER_ROW;i++){
+	  writeStringHead++;
+          fbputchar(*writeStringHead, 21, i);
+          currentRow = 22;
+      }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	break;
@@ -149,17 +170,48 @@ void Custum_Initial()
   }	
 }
 
+void InitiateRow(int min, int max){
+  int col, row;
+  for (row = min; row < max + 1; row++){
+    for (col = 0 ; col < 64 ; col++) {
+      fbputchar(' ', row, col);
+    }
+  }	
+}
+
 void *network_thread_f(void *ignored)
 {
   char recvBuf[BUFFER_SIZE];
+  char tempBuf1[MAXPERROW+1];
+  char tempBuf2[MAXPERROW+1];
   int n;
-  /* Receive data */
+  int i;
+  int tempRow=1;
+  /* Read: Receive data */
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
     printf("%s", recvBuf);
-    fbputs(recvBuf, 8, 0);
+    if (n < MAX_PER_ROW || n==MAX_PER_ROW){  
+      fbputs(recvBuf, tempRow, 0);
+      tempRow++;
+    }
+    else{
+      for (i=0;i<MAX_PER_ROW;i++){
+        tempBuf1[i]=recvBuf[i];
+      }
+	tempBuf1[i]='\0';
+      for (i=0;i < n-MAX_PER_ROW;i++){
+        tempBuf2[i]=recvBuf[i];
+      }
+	tempBuf2[i]='\0';
+      fbputs(tempBuf1, tempRow, 0);
+      tempRow++;
+      fbputs(tempBuf2, tempRow, 0);
+      tempRow++;
+    }	  
+    /* Scroll up when it is full */
   }
-
+  
   return NULL;
 }
 
