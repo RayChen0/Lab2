@@ -133,7 +133,8 @@ int main()
         currentCol=INIT_COL;
 	      /* scroll */
 	InitiateRow(21, 22);
-	writeStringHead=&writeString[count-MAX_PER_ROW-1];
+	fbputchar(dispCharacter, 23, 0);
+	writeStringHead=&writeString[count-MAX_PER_ROW];
 	for(i=0;i<MAX_PER_ROW;i++){
         fbputchar(*writeStringHead, 21, i);
         writeStringHead++;
