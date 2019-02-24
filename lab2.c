@@ -102,7 +102,7 @@ int main()
       sprintf(keystate, "%02x %02x %02x", packet.modifiers, packet.keycode[0],
 	      packet.keycode[1]);
       printf("%s\n", keystate);
-      if (!packet.keycode[0]){
+      if (packet.keycode[0]!=0){
          dispCharacter = keyValue(packet.keycode[0]);
          fbputchar(dispCharacter, 20, 20);
       }
