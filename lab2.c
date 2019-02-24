@@ -68,9 +68,8 @@ int main()
   Custum_Initial();
   /* Draw rows of asterisks across the top and bottom of the screen */
   for (col = 0 ; col < 64 ; col++) {
-    fbputchar('*', 0, col);
-    fbputchar('*',11,col);
-    fbputchar('*', 23, col);
+    fbputchar('*', 10, col);
+    fbputchar('*',21,col);
   }
   
   /* Open the keyboard */
@@ -118,6 +117,7 @@ int main()
       printf("%s\n", keystate);
       fbputs(keystate, 6, 0);
 
+	    
       if (packet.keycode[0]!=0){
 	 printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
          dispCharacter = keyValue(packet.keycode[0]);
@@ -132,10 +132,10 @@ int main()
       if (currentCol > MAX_PER_ROW-1 && currentRow==22){
         currentCol=INIT_COL;
 	      /* scroll */
-	InitiateRow(21, 22);
+	InitiateRow(22, 23);
 	writeStringHead=&writeString[count-MAX_PER_ROW];
 	for(i=0;i<MAX_PER_ROW;i++){
-        fbputchar(*writeStringHead, 21, i);
+        fbputchar(*writeStringHead, 22, i);
         writeStringHead++;
 	}
       }
