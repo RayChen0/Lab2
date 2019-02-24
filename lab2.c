@@ -128,7 +128,7 @@ int main()
 	 /* writeString++; */
       }
 
-      if (currentCol > MAX_PER_ROW)
+      if (currentCol > MAX_PER_ROW-1)
       {
 	currentRow=currentRow+1;
         currentCol=INIT_COL;
