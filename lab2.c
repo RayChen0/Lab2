@@ -94,7 +94,8 @@ int main()
 
   /* Start the network thread */
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
-   
+   /* initial the screen */
+  initial();
   /* Look for and handle keypresses */
   currentRow=INIT_ROW;
   currentCol=INIT_COL;
@@ -133,6 +134,15 @@ int main()
   pthread_join(network_thread, NULL);
 
   return 0;
+}
+
+void initial()
+{
+  int col, row;
+  for (row = 0; row < 23; row++){
+    for (col = 0 ; col < 64 ; col++) {
+      fbputchar(' ', row, col);
+  }	
 }
 
 void *network_thread_f(void *ignored)
