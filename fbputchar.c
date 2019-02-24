@@ -247,9 +247,7 @@ static unsigned char font[] = {
   0x00, 0x66, 0x00, 0x66, 0x66, 0x66, 0x66, 0x3c, 0x18, 0x18, 0x18, 0x3c, 0x00, 0x00, 0x00, 0x00,
 };
 
-char keyValue(int keyPressed1){
-switch (keyPressed1){
-/* Define letters here */
+
 char keyValue(int keyPressed1){
 switch (keyPressed1){
 /* Define letters here */
