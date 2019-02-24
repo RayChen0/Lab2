@@ -248,9 +248,154 @@ static unsigned char font[] = {
 };
 
 
-char keyValue(int keyPressed1){
+char keyValue(int modifiers, keyPressed1){
 switch (keyPressed1){
 /* Define letters here */
+   if (modifiers == 0x02 || modifiers == 0x20){
+   case KEY_A:
+      return 'A';
+      break;
+   case KEY_B:
+      return 'B';
+      break;
+   case KEY_C:
+      return 'C';
+      break;
+   case KEY_D:
+      return 'D';
+      break;
+   case KEY_E:
+      return 'E';
+      break;
+   case KEY_F:
+      return 'F';
+      break;
+   case KEY_G:
+      return 'G';
+      break;
+   case KEY_H:
+      return 'H';
+      break;
+   case KEY_I:
+      return 'I';
+      break;
+   case KEY_J:
+      return 'J';
+      break;
+   case KEY_K:
+      return 'K';
+      break;
+   case KEY_L:
+      return 'L';
+      break;
+   case KEY_M:
+      return 'M';
+      break;
+   case KEY_N:
+      return 'N';
+      break;
+   case KEY_O:
+      return 'O';
+      break;
+   case KEY_P:
+      return 'P';
+      break;
+   case KEY_Q:
+      return 'Q';
+      break;
+   case KEY_R:
+      return 'R';
+      break;
+   case KEY_S:
+      return 'S';
+      break;
+   case KEY_T:
+      return 'T';
+      break;
+   case KEY_U:
+      return 'U';
+      break;
+   case KEY_V:
+      return 'V';
+      break;
+   case KEY_W:
+      return 'W';
+      break;
+   case KEY_X:
+      return 'X';
+      break;
+   case KEY_Y:
+      return 'Y';
+      break;
+   case KEY_Z:
+      return 'Z';
+      break;
+/* Define numbers here */
+   case KEY_1:
+      return '!';
+      break;
+   case KEY_2:
+      return '@';
+      break;
+   case KEY_3:
+      return '#';
+      break;
+   case KEY_4:
+      return '$';
+      break;
+   case KEY_5:
+      return '%';
+      break;
+   case KEY_6:
+      return '^';
+      break;
+   case KEY_7:
+      return '&';
+      break;
+   case KEY_8:
+      return '*';
+      break;
+   case KEY_9:
+      return '(';
+      break;
+   case KEY_0:
+      return ')';
+      break;
+   case KEY_MINUS:
+      return '_';
+      break;
+   case KEY_EQUAL:
+      return '+';
+      break;
+   case KEY_LEFTBRACE:
+      return '{';
+      break;
+   case KEY_RIGHTBRACE:
+      return '}';
+      break;
+   case KEY_BACKSLASH:
+      return '|';
+      break;
+   case KEY_SEMICOLON:
+      return ':';
+      break;
+   case KEY_APOSTROPHE:
+      return '"';
+      break;
+   case KEY_GRAVE:
+      return '~';
+      break;
+   case KEY_COMMA:
+      return '<';
+      break;
+   case KEY_DOT:
+      return '>';
+      break
+   case KEY_SLASH:
+      return '?';
+      break;
+   }
+   else{
    case KEY_A:
       return 'a';
       break;
@@ -360,10 +505,187 @@ switch (keyPressed1){
    case KEY_0:
       return '0';
       break;
+   case KEY_ENTER:
+      return 0x28;
+      break;
+   case KEY_ESC:
+      return 0x29;
+      break;
+   case KEY_BACKSPACE:
+      return 0x2a;
+      break;
+   case KEY_TAB:
+      return 0x2b;
+      break;
+   case KEY_MINUS:
+      return '-';
+      break;
+   case KEY_EQUAL:
+      return '=';
+      break;
+   case KEY_LEFTBRACE:
+      return '[';
+      break;
+   case KEY_RIGHTBRACE:
+      return ']';
+      break;
+   case KEY_BACKSLASH:
+      return '\';
+      break;
+   case KEY_SEMICOLON:
+      return ';';
+      break;
+   case KEY_APOSTROPHE:
+      return ''';
+      break;
+   case KEY_GRAVE:
+      return '`';
+      break;
+   case KEY_COMMA:
+      return ',';
+      break;
+   case KEY_DOT:
+      return '.';
+      break
+   case KEY_SLASH:
+      return '/';
+      break;
+   case KEY_CAPSLOCK:
+      return 0x39;
+      break
+   case KEY_F1:
+      return 0x3a;
+      break
+   case KEY_F2:
+      return 0x3b;
+      break
+   case KEY_F3:
+      return 0x3c;
+      break
+   case KEY_F4:
+      return 0x3d;
+      break
+   case KEY_F5:
+      return 0x3e;
+      break
+   case KEY_F6:
+      return 0x3f;
+      break
+   case KEY_F7:
+      return 0x40;
+      break
+   case KEY_F8:
+      return 0x41;
+      break
+   case KEY_F9:
+      return 0x42;
+      break
+   case KEY_F10:
+      return 0x43;
+      break
+   case KEY_F11:
+      return 0x44;
+      break
+   case KEY_F12:
+      return 0x45;
+      break
+   case KEY_INSERT:
+      return 0x49;
+      break
+   case KEY_HOME:
+      return 0x4a;
+      break
+   case KEY_PAGEUP:
+      return 0x4b;
+      break
+   case KEY_DELETE:
+      return 0x4c;
+      break
+   case KEY_END:
+      return 0x4d;
+      break
+   case KEY_PAGEDOWN:
+      return 0x4e;
+      break
+   case KEY_RIGHT:
+      return 0x4f;
+      break
+   case KEY_LEFT:
+      return 0x50;
+      break
+   case KEY_DOWN:
+      return 0x51;
+      break
+   case KEY_UP:
+      return 0x52;
+      break
+   case KEY_NUMLOCK:
+      return 0x53;
+      break
+   case KEY_MUTE:
+      return 0x7f;
+      break
+   case KEY_VOLUMEUP:
+      return 0x80;
+      break
+   case KEY_VOLUMEDOWN:
+      return 0x81;
+      break
+   case KEY_KPSLASH:
+      return '/';
+      break;
+   case KEY_KPASTERISK:
+      return '*';
+      break;
+   case KEY_LEFTBRACE:
+      return '[';
+      break;
+   case KEY_KPMINUS:
+      return '-';
+      break;
+   case KEY_KPPLUS:
+      return '+';
+      break;
+   case KEY_KPENTER:
+      return 0x58;
+      break;
+   case KEY_KP1:
+      return '1';
+      break;
+   case KEY_KP2:
+      return '2';
+      break;
+   case KEY_KP3:
+      return '3';
+      break;
+   case KEY_KP4:
+      return '4';
+      break
+   case KEY_KP5:
+      return '5';
+      break;
+   case KEY_KP6:
+      return '6';
+      break;
+   case KEY_KP7:
+      return '7';
+      break;
+   case KEY_KP8:
+      return '8';
+      break;
+   case KEY_KP9:
+      return '9';
+      break
+   case KEY_KP0:
+      return '0';
+      break;
+   case KEY_KPDOT:
+      return '.';
+      break;
    case KEY_SPACE:
       return ' ';
       break;
-		
+   }
    default:
       return ' ';
    }
