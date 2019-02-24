@@ -122,7 +122,7 @@ int main()
          fbputchar(dispCharacter, currentRow, currentCol);
 	 currentCol++;
 	 *writeString = dispCharacter;
-	 writeSting++;
+	 writeString++;
 	 count++;
       }
 
@@ -143,6 +143,7 @@ int main()
 	  writeStringHead++;
           fbputchar(*writeStringHead, 21, i);
           currentRow = 22;
+	  }
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
@@ -182,8 +183,8 @@ void InitiateRow(int min, int max){
 void *network_thread_f(void *ignored)
 {
   char recvBuf[BUFFER_SIZE];
-  char tempBuf1[MAXPERROW+1];
-  char tempBuf2[MAXPERROW+1];
+  char tempBuf1[MAX_PER_ROW+1];
+  char tempBuf2[MAX_PER_ROW+1];
   int n;
   int i;
   int tempRow=1;
