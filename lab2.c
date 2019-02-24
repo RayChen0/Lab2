@@ -117,7 +117,7 @@ int main()
       if (currentCol > MAX_PER_ROW)
       {
 	      currentCol++;
-	      currentRow=INIT_Row;
+	      currentRow=INIT_ROW;
       }
 	    
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
