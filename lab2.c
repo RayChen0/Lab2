@@ -18,7 +18,7 @@
  * the chat server you are connecting to
  */
 /* micro36.ee.columbia.edu */
-#define SERVER_HOST "160.39.7.169"
+#define SERVER_HOST "128.59.148.182"
 #define SERVER_PORT 42000
 
 #define BUFFER_SIZE 128
