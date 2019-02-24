@@ -123,7 +123,7 @@ int main()
 	 currentCol++;
 	 count++;
 	 writeString[count] = dispCharacter;
-	 printf("count = %d\n col= %d", count, currentCol);
+	 printf("count = %d, col= %d\n", count, currentCol);
 	      
 	 /* writeString++; */
       }
@@ -135,7 +135,7 @@ int main()
       }
 
       /* scroll */
-      if (count>MAX_PER_ROW && count % MAX_PER_ROW==0){
+      if (count>MAX_PER_ROW && count % MAX_PER_ROW==1){
           InitiateRow(21, 22);
 	  writeStringHead=&writeString[count-MAX_PER_ROW];
 	  for(i=0;i<MAX_PER_ROW;i++){
