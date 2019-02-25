@@ -228,12 +228,12 @@ void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
 
 /* Move all element in a string forward n, others become '\0' */
 char *MoveString(char toBeMoveString[], int moveLength){
-
+  char *movedString;
   movedString=&toBeMoveString[moveLength];
   return movedString;
 }
 
-int judge = JudgeClass(char dispCharacter){
+int JudgeClass(char dispCharacter){
   switch (dispCharacter){
     case 0x28:
       return 1;
