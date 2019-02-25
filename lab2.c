@@ -260,7 +260,7 @@ void *network_thread_f(void *ignored)
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
     printf("%s", recvBuf);
-    for (i=0;i<lenstr(recvBuf);i++){
+    for (i=0;i<strlen(recvBuf);i++){
       myBuff[i+countLength]=recvBuf[i];
     }
     if (n < MAX_PER_ROW || n==MAX_PER_ROW){  
