@@ -140,7 +140,7 @@ int main()
          flag = JudgeClass(packet.keycode[0]);
          if (flag==1){ /* if Enter is pressed */
            /* Assume the string to write is less than BUFFER_SIZE */
-           write(sockfd, writeString, lenstr(writeString)); /* send to server*/
+           write(sockfd, writeString, strlen(writeString)); /* send to server*/
            /* to table display*/
            fbputs(writeString,row2,0);
            row2++;
@@ -264,7 +264,7 @@ void *network_thread_f(void *ignored)
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
     printf("%s", recvBuf);
-    for (i=0;i<lenstr(recvBuf);i++){
+    for (i=0;i<strlen(recvBuf);i++){
       myBuff[i+countLength]=recvBuf[i];
     }
     if (n < MAX_PER_ROW || n==MAX_PER_ROW){  
