@@ -130,7 +130,7 @@ int main()
       if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
          if (packet.keycode[1] == 00){
-          dispCharacter = keyValue(packet.modifier, packet.keycode[0]);
+          dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
          }
          else{
            continue;
