@@ -23,7 +23,7 @@
 
 #define BUFFER_SIZE 128
 #define MAX_PER_ROW 64
-#define INIT_ROW 21
+#define INIT_ROW 22
 #define INIT_COL 0
 #define MAXROW 23
 #define HIG_BOUND_FIR 0
@@ -113,7 +113,7 @@ int main()
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
 
   /* Look for and handle keypresses */
-  currentRow=INIT_ROW;
+  currentRow=HIG_BOUND_THI;
   currentCol=INIT_COL;
   writeStringHead = writeString;
   writeHead = writeString;
@@ -129,16 +129,12 @@ int main()
 
       if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
-	 if (!packet.keycode[1]){
-           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
-	 }
-	 else{
-           continue; }
+         dispCharacter = keyValue(packet.keycode[0]);
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
-         flag = JudgeClass(dispCharacter);
+         flag = JudgeClass(packet.keycode[0]);
          if (flag==1){ /* if Enter is pressed */
            /* Assume the string to write is less than BUFFER_SIZE */
-           write(sockfd, writeString, strlen(writeString)); /* send to server*/
+           write(sockfd, writeString, lenstr(writeString)); /* send to server*/
            /* to table display*/
            fbputs(writeString,row2,0);
            row2++;
@@ -157,13 +153,13 @@ int main()
          }
       }
 
-      if (currentCol > MAX_PER_ROW-1 && currentRow==22){
+      if (currentCol > MAX_PER_ROW-1 && currentRow==LOW_BOUND_THI){
         currentCol=INIT_COL;
 	      /* scroll */
 	      InitiateRow(HIG_BOUND_THI, LOW_BOUND_THI);
 	      writeStringHead=&writeString[count-MAX_PER_ROW];
 	      for(i=0;i<MAX_PER_ROW;i++){
-           fbputchar(*writeStringHead, 22, i);
+           fbputchar(*writeStringHead, LOW_BOUND_THI, i);
            writeStringHead++;
 	       }
       }
@@ -228,12 +224,12 @@ void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
 
 /* Move all element in a string forward n, others become '\0' */
 char *MoveString(char toBeMoveString[], int moveLength){
-  char *movedString;
+
   movedString=&toBeMoveString[moveLength];
   return movedString;
 }
 
-int JudgeClass(char dispCharacter){
+int judge = JudgeClass(char dispCharacter){
   switch (dispCharacter){
     case 0x28:
       return 1;
@@ -241,7 +237,7 @@ int JudgeClass(char dispCharacter){
     case 0x58:
       return 1;
       break;
-    default:
+      default:
       return 0;
   }
 }
@@ -262,7 +258,7 @@ void *network_thread_f(void *ignored)
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
     printf("%s", recvBuf);
-    for (i=0;i<strlen(recvBuf);i++){
+    for (i=0;i<lenstr(recvBuf);i++){
       myBuff[i+countLength]=recvBuf[i];
     }
     if (n < MAX_PER_ROW || n==MAX_PER_ROW){  
