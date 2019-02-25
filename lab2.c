@@ -167,7 +167,7 @@ int main()
 	      InitiateRow(HIG_BOUND_THI, LOW_BOUND_THI);
 	      writeStringHead=&writeString[count-MAX_PER_ROW];
 	      for(i=0;i<MAX_PER_ROW;i++){
-           fbputchar(*writeStringHead, LOW_BOUND_THI, i);
+           fbputchar(*writeStringHead, HIG_BOUND_THI, i);
            writeStringHead++;
 	       }
       }
