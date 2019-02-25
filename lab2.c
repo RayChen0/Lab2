@@ -129,7 +129,13 @@ int main()
 
       if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
-         dispCharacter = keyValue(packet.keycode[0]);
+         if (packet.keycode[1] == 00){
+          dispCharacter = keyValue(packet.modifier, packet.keycode[0]);
+         }
+         else{
+           continue;
+         }
+         
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
          flag = JudgeClass(packet.keycode[0]);
          if (flag==1){ /* if Enter is pressed */
@@ -224,12 +230,12 @@ void ActScroll(int minRow, int maxRow, int colPerRow, char *myString){
 
 /* Move all element in a string forward n, others become '\0' */
 char *MoveString(char toBeMoveString[], int moveLength){
-
+  char *movedString;
   movedString=&toBeMoveString[moveLength];
   return movedString;
 }
 
-int judge = JudgeClass(char dispCharacter){
+int JudgeClass(char dispCharacter){
   switch (dispCharacter){
     case 0x28:
       return 1;
