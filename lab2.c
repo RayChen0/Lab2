@@ -145,6 +145,8 @@ int main()
            fbputs(writeString,row2,0);
            row2++;
            writeString[0] = '\0';
+           InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
+           count = 0;
 
          }
          else if (flag==0){
