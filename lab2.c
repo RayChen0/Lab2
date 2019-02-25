@@ -138,7 +138,7 @@ int main()
          flag = JudgeClass(dispCharacter);
          if (flag==1){ /* if Enter is pressed */
            /* Assume the string to write is less than BUFFER_SIZE */
-           write(sockfd, writeString, lenstr(writeString)); /* send to server*/
+           write(sockfd, writeString, strlen(writeString)); /* send to server*/
            /* to table display*/
            fbputs(writeString,row2,0);
            row2++;
