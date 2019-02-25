@@ -241,6 +241,8 @@ int JudgeClass(char dispCharacter){
     case 0x58:
       return 1;
       break;
+    default:
+      return 0;
   }
 }
 
