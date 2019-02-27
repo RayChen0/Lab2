@@ -224,7 +224,7 @@ int main()
 void Custum_Initial()
 {
   int col, row;
-  for (row = 0; row < 23; row++){
+  for (row = 0; row < 24; row++){
     for (col = 0 ; col < 64 ; col++) {
       fbputchar(' ', row, col);
     }
