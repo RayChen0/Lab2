@@ -53,6 +53,7 @@ void InitiateRow(int, int);
 char *MoveString(char *, int);
 void ActScroll(int, int, int, char *);
 int JudgeClass(char);
+char memory
 
 
 int main()
@@ -136,8 +137,12 @@ int main()
           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
          }
 	 else if (packet.keycode[1] != 00){
+           memory = packet.keycode[1];
 	   dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
-	      }
+	 }
+	 else if(packet.keycode[0] == memory){
+	    continue;
+	 }
          else{
            continue;
          }
