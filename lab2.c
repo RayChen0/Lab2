@@ -249,7 +249,7 @@ int main()
          else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	    break;
          }
-	 fbputcursor
+	 fbputcursor(0x2c, currentRow, currentCol+1);
     }
   }
 
