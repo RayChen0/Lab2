@@ -324,6 +324,8 @@ int main()
          else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	        break;
         }
+
+        InitiateRow(HIG_BOUND_THI,LOW_BOUND_THI);
         if (strlen(writeString)<=MAX_PER_ROW) {
             fbputs(writeString, currentRow, 0);
         }
@@ -338,7 +340,15 @@ int main()
          }
 
         currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
-        fbputcursor(writeString[currentIndex], currentRow, currentCol);
+        if (currentIndex == count) {
+          fbputcursor(0x20, currentRow, currentCol);
+        }
+        else
+        {
+          fbputcursor(writeString[currentIndex], currentRow, currentCol);
+        }
+        
+
     }
   }
 }
