@@ -135,6 +135,9 @@ int main()
          if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
          }
+	 else if (packet.keycode[1] != 00){
+	   dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
+	      }
          else{
            continue;
          }
