@@ -53,7 +53,7 @@ void InitiateRow(int, int);
 char *MoveString(char *, int);
 void ActScroll(int, int, int, char *);
 int JudgeClass(char);
-char memory
+char memory;
 
 
 int main()
