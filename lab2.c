@@ -326,7 +326,8 @@ int main()
           
           /* Now we show the whole message */
          }
-          
+        
+        InitiateRow(HIG_BOUND_THI,  LOW_BOUND_THI);
         if (strlen(writeString)<=MAX_PER_ROW) {
                   fbputs(writeString, currentRow, 0);
                 }
