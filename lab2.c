@@ -2,7 +2,7 @@
  *
  * CSEE 4840 Lab 2 for 2019
  *
- * Name/UNI: Please Changeto Yourname (pcy2301)
+ * Name/UNI: Please Changeto Yourname (Rui Chen/rc3205, Shaofu Wu/sw3385) 
  */
 #include "fbputchar.h"
 #include <stdio.h>
@@ -51,7 +51,6 @@ void *network_thread_f(void *);
 void Custum_Initial();
 void InitiateRow(int, int);
 int JudgeClass(char);
-char memory;
 
 
 int main()
@@ -72,6 +71,8 @@ int main()
   char writeStringBuffer1[MAX_PER_ROW+1];
   char writeStringBuffer2[MAX_PER_ROW+1];
   char selfBuffer[10][MAX_PER_ROW+1];
+  char memory;
+
 
 
   currentIndex = 0;
@@ -130,7 +131,10 @@ int main()
       sprintf(keystate, "%02x %02x %02x", packet.modifiers, packet.keycode[0],
 	      packet.keycode[1]);
       /* Here we find a key pressed*/
-      if (packet.keycode[0]!=0){
+      if (packet.keycode[0] == 0){
+	      memory = 0x00;
+      }
+      else if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow); /* Delete this line later */
          if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
