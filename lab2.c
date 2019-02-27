@@ -166,11 +166,7 @@ int main()
               writeString[0] = '\0';
               writeStringBuffer1[0]='\0';
               writeStringBuffer2[0]='\0';
-
            }
-           
-
-            
             InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
             count = 0;
          }
@@ -184,7 +180,7 @@ int main()
          else if (flag == 2) {/* if delete is pressed */
            /*Do other function here*/
          }
-         else if (flag == 3)/* if direction key is pressed
+         else if (flag == 3){/* if direction key is pressed
          {
            /* code */
          }
