@@ -74,7 +74,7 @@ int main()
   char selfBuffer[10][MAX_PER_ROW+1];
 
 
-  currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
+  currentIndex = 0;
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
     exit(1);
@@ -149,7 +149,7 @@ int main()
          }
          
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
-         flag = JudgeClass(packet.keycode[0]);
+        flag = JudgeClass(packet.keycode[0]);
          
          
          if (flag == 1){ /* if Enter is pressed */  
@@ -249,8 +249,7 @@ int main()
                 {
                   currentCol++;
                 }
-                
-                currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
+
 	              printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
             }          
 	       }
@@ -272,7 +271,6 @@ int main()
                 {
                     currentCol--;
                 }
-                currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
             }
             
          }
@@ -287,7 +285,6 @@ int main()
                 {
                   currentCol--;
                 }
-                  currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
             }
           }
           
@@ -303,7 +300,6 @@ int main()
                 {
                     currentCol++;
                 }
-                currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
             }
           }
 
@@ -321,7 +317,6 @@ int main()
 
                 count--;
 
-                currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
             }
           
           /* Now we show the whole message */
@@ -329,24 +324,25 @@ int main()
         
         
         if (strlen(writeString)<=MAX_PER_ROW) {
-                  fbputs(writeString, currentRow, 0);
-                }
-                else
-                {
-                  strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
-                  writeStringBuffer1[MAX_PER_ROW]='\0';
-                  fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
-                  
-                  strncpy(writeStringBuffer2,writeString,strlen(writeString)-MAX_PER_ROW);
-                  writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
-                  fbputs(writeStringBuffer2,LOW_BOUND_THI,0);                          
-                  }
-        if (flag == 2 || flag ==3 || flag ==4 || flag == 5) {
-                  fbputcursor(writeString[currentIndex], currentRow, currentCol);
+            fbputs(writeString, currentRow, 0);
         }
+        else{
+            strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
+            writeStringBuffer1[MAX_PER_ROW]='\0';
+           fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
+                  
+           strncpy(writeStringBuffer2,writeString,strlen(writeString)-MAX_PER_ROW);
+           writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
+           fbputs(writeStringBuffer2,LOW_BOUND_THI,0);                          
+         }
+
+        currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
+        fbputcursor(writeString[currentIndex], currentRow, currentCol);
+
 
   else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
-	      break;}
+	      break;
+      }
     }
   }
 }
