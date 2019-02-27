@@ -162,7 +162,7 @@ int main()
                   for(i = 0; i < 9 ; i++)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
-                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                    fbputs(selfBuffer[i],HIG_BOUND_SEC + i,0);
                   }
                   selfBuffer[9][0]='\0';
                 }
@@ -182,7 +182,7 @@ int main()
                   for(i = 0; i < 9 ; i++)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
-                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                    fbputs(selfBuffer[i],HIG_BOUND_SEC + i,0);
                   }
                   selfBuffer[9][0]='\0';
                 }
@@ -200,7 +200,7 @@ int main()
                   for(i = 0; i < 9 ; i++)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
-                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                    fbputs(selfBuffer[i],HIG_BOUND_SEC + i,0);
                   }
                   selfBuffer[9][0]='\0';
                 }
