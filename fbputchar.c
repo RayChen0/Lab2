@@ -104,7 +104,7 @@ void fbputchar(char c, int row, int col)
 void fbputcursor(char c, int row, int col)
 {
   int x, y;
-  unsigned char pixels, *pixelp = font2 + FONT_HEIGHT * c;
+  unsigned char pixels, *pixelp = font + FONT_HEIGHT * c;
   unsigned char mask;
   unsigned char *pixel, *left = framebuffer +
     (row * FONT_HEIGHT * 2 + fb_vinfo.yoffset) * fb_finfo.line_length +
