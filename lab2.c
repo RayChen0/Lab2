@@ -245,14 +245,11 @@ int main()
            /*Do other function here*/
          }
          else if (flag == 3){/* if direction key is pressed */
-
-         }
-         
-      }
-
-      if (packet.keycode[0] == 0x29) { /* ESC pressed? */
+	 }
+         else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	    break;
-      }
+         }
+	 fbputcursor
     }
   }
 
