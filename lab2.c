@@ -252,7 +252,7 @@ int main()
 	 fbputcursor(0x2c, currentRow, currentCol+1);
     }
   }
-
+}
   /* Terminate the network thread */
   pthread_cancel(network_thread);
 
