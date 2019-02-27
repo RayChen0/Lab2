@@ -148,13 +148,12 @@ int main()
            
            /* whenever put in long string */
            /* check the length first *//*undeclared writeStringBuffer1[Max_PER_ROW+1], writeStringBuffer2[Max_PER_ROW+1]*/
-           if (strlen(writeString)<=MAX_PER_ROW) {
+            if (strlen(writeString)<=MAX_PER_ROW) {/* if length is shorter than a single line width */
                 fbputs(writeString,row2,0);
                 row2++;
                 writeString[0] = '\0';
-           }
-           else
-           {
+            }
+            else{/* if length is larger than one line, split them into two lines */
               strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
               writeStringBuffer1[MAX_PER_ROW+1]='\0';
               strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
@@ -166,45 +165,36 @@ int main()
               writeString[0] = '\0';
               writeStringBuffer1[0]='\0';
               writeStringBuffer2[0]='\0';
-           }
+            }
             InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
             count = 0;
             currentCol = 0;
+            currentRow = HIG_BOUND_THI;
          }
          else if (flag == 0){/* if a character is pressed */
-           fbputchar(dispCharacter, currentRow, currentCol);
-	         writeString[count] = dispCharacter;
-           writeString[count+1]='\0';
-	         currentCol++;
-	         count++;
-	         printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
-         }
+           /* we only allow maximum 128 character*/
+           if (count<128) {
+            fbputchar(dispCharacter, currentRow, currentCol);
+	          writeString[count] = dispCharacter;
+            writeString[count+1]='\0';
+	          currentCol++;
+	          count++;
+	          printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
+           }
+           else
+           {
+             continue;
+           }
+                      
+	       }
          else if (flag == 2) {/* if delete is pressed */
            /*Do other function here*/
          }
-         else if (flag == 3){/* if direction key is pressed
-         {
-           /* code */
+         else if (flag == 3){/* if direction key is pressed */
+
          }
          
       }
-
-      if (currentCol > MAX_PER_ROW-1 && currentRow==LOW_BOUND_THI){
-        currentCol=INIT_COL;
-	      /* scroll */
-	      InitiateRow(HIG_BOUND_THI, LOW_BOUND_THI);
-	      writeStringHead=&writeString[count-MAX_PER_ROW];
-	      for(i=0;i<MAX_PER_ROW;i++){
-           fbputchar(*writeStringHead, HIG_BOUND_THI, i);
-           writeStringHead++;
-	       }
-      }
-      else if (currentCol > MAX_PER_ROW-1)
-      {
-	      currentRow=currentRow+1;
-        currentCol=INIT_COL;
-      }
-
 
       if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	    break;
