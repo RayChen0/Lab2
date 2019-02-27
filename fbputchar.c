@@ -28,8 +28,7 @@ struct fb_var_screeninfo fb_vinfo;
 struct fb_fix_screeninfo fb_finfo;
 unsigned char *framebuffer;
 static unsigned char font[];
-unsigned char font2[];
-int j;
+
 
 /*
  * Open the framebuffer to prepare it to be written to.  Returns 0 on success
@@ -116,26 +115,26 @@ void fbputcursor(char c, int row, int col)
     mask = 0x80;
     for (x = 0 ; x < FONT_WIDTH ; x++) {
       if (pixels & mask) {	
-	pixel[0] = 255; /* Red */
-        pixel[1] = 255; /* Green */
-        pixel[2] = 255; /* Blue */
+	pixel[0] = 0; /* Red */
+        pixel[1] = 0; /* Green */
+        pixel[2] = 0; /* Blue */
         pixel[3] = 0;
       } else {
-	pixel[0] = 0;
-        pixel[1] = 0;
-        pixel[2] = 0;
+	pixel[0] = 255;
+        pixel[1] = 255;
+        pixel[2] = 255;
         pixel[3] = 0;
       }
       pixel += 4;
       if (pixels & mask) {
-	pixel[0] = 255; /* Red */
-        pixel[1] = 255; /* Green */
-        pixel[2] = 255; /* Blue */
+	pixel[0] = 0; /* Red */
+        pixel[1] = 0; /* Green */
+        pixel[2] = 0; /* Blue */
         pixel[3] = 0;
       } else {
-	pixel[0] = 0;
-        pixel[1] = 0;
-        pixel[2] = 0;
+	pixel[0] = 255;
+        pixel[1] = 255;
+        pixel[2] = 255;
         pixel[3] = 0;
       }
       pixel += 4;
@@ -292,11 +291,6 @@ static unsigned char font[] = {
   0x00, 0x66, 0x00, 0x66, 0x66, 0x66, 0x66, 0x3c, 0x18, 0x18, 0x18, 0x3c, 0x00, 0x00, 0x00, 0x00,
 };
 
-for( j = 0; j < strlen(font); j++)
-{
-  font2[j]=~font[j];
-}
-font2[j]='\0';
 
 char keyValue(int modifiers, int keyPressed1){
 if (modifiers == 0x02 || modifiers == 0x20){
