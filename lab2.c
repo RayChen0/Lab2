@@ -69,8 +69,9 @@ int main()
   int transferred;
   char keystate[12];
   int row2=HIG_BOUND_SEC;
-  char writeStringBuffer1[MAX_PER_ROW];
-  char writeStringBuffer2[MAX_PER_ROW];
+  char writeStringBuffer1[MAX_PER_ROW+1];
+  char writeStringBuffer2[MAX_PER_ROW+1];
+  char selfBuffer[10][MAX_PER_ROW+1];
 
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
@@ -149,22 +150,63 @@ int main()
            /* whenever put in long string */
            /* check the length first */
             if (strlen(writeString)<=MAX_PER_ROW) {/* if length is shorter than a single line width */
-                fbputs(writeString,row2,0);
-                row2++;
+                strcpy(selfBuffer[row2-HIG_BOUND_SEC],writeString);
                 writeString[0] = '\0';
+                fbputs(selfBuffer[row2-HIG_BOUND_SEC],row2,0);
+                row2++;
+
+                /* if it reaches to the boundary, then scroll */
+                if (row2 > LOW_BOUND_SEC) {
+                  InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
+                  row2 = LOW_BOUND_SEC;
+                  for(i = 0; i < 9; i++)
+                  {
+                    strcpy(selfBuffer[i],selfBuffer[i+1]);
+                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                  }
+                  selfBuffer[9][0]='\0';
+                }
+                /* finish scroll */
+
+                
             }
             else{/* if length is larger than one line, split them into two lines */
-                strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
-                writeStringBuffer1[MAX_PER_ROW]='\0';
-                strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
-                writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
-                fbputs(writeStringBuffer1,row2,0);
+                strncpy(selfBuffer[row2-HIG_BOUND_SEC],writeString,MAX_PER_ROW);
+                selfBuffer[row2-HIG_BOUND_SEC][MAX_PER_ROW]='\0';
+                fbputs(selfBuffer[row2-HIG_BOUND_SEC],row2,0);
                 row2++;
-                fbputs(writeStringBuffer2,row2,0);
+                /* if it reaches to the boundary, then scroll */
+                if (row2 > LOW_BOUND_SEC) {
+                  InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
+                  row2 = LOW_BOUND_SEC;
+                  for(i = 0; i < 9; i++)
+                  {
+                    strcpy(selfBuffer[i],selfBuffer[i+1]);
+                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                  }
+                  selfBuffer[9][0]='\0';
+                }
+                /* finish scroll */
+
+                strncpy(selfBuffer[row2-HIG_BOUND_SEC],writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
+                selfBuffer[row2-HIG_BOUND_SEC][strlen(writeString)-MAX_PER_ROW]='\0';
+                fbputs(selfBuffer[row2-HIG_BOUND_SEC],row2,0);
                 row2++;
+
+                /* if it reaches to the boundary, then scroll */
+                if (row2 > LOW_BOUND_SEC) {
+                  InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
+                  row2 = LOW_BOUND_SEC;
+                  for(i = 0; i < 9; i++)
+                  {
+                    strcpy(selfBuffer[i],selfBuffer[i+1]);
+                    fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
+                  }
+                  selfBuffer[9][0]='\0';
+                }
+                /* finish scroll */
+
                 writeString[0] = '\0';
-                writeStringBuffer1[0]='\0';
-                writeStringBuffer2[0]='\0';
             }
             InitiateRow(HIG_BOUND_THI,LOW_BOUND_THI);
             count = 0;
