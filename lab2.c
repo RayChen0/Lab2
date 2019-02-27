@@ -69,6 +69,8 @@ int main()
   int transferred;
   char keystate[12];
   int row2=HIG_BOUND_SEC;
+  char writeStringBuffer1[MAX_PER_ROW+1];
+  char writeStringBuffer2[MAX_PER_ROW+1];
 
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
@@ -126,10 +128,10 @@ int main()
 	      packet.keycode[1]);
       printf("%s\n", keystate);
       fbputs(keystate, 6, 0);
-
+      /* Here we find a key pressed*/a
       if (packet.keycode[0]!=0){
-	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow);
-         if (packet.keycode[1] == 00){
+	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow); /* Delete this line later */
+         if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
          }
          else{
@@ -139,26 +141,54 @@ int main()
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
          flag = JudgeClass(packet.keycode[0]);
          if (flag==1){ /* if Enter is pressed */
+           
+           
            /* Assume the string to write is less than BUFFER_SIZE */
            write(sockfd, writeString, strlen(writeString)); /* send to server*/
-           /* to table display*/
-           fbputs(writeString,row2,0);
-           row2++;
-           writeString[0] = '\0';
-           InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
-           count = 0;
+           
+           /* whenever put in long string */
+           /* check the length first *//*undeclared writeStringBuffer1[Max_PER_ROW+1], writeStringBuffer2[Max_PER_ROW+1]*/
+           if (strlen(writeString)<=MAX_PER_ROW) {
+                fbputs(writeString,row2,0);
+                row2++;
+                writeString[0] = '\0';
+           }
+           else
+           {
+              strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
+              writeStringBuffer1[MAX_PER_ROW+1]='\0';
+              strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
+              writeStringBuffer2[strlen(writeString)-MAX_PER_ROW+1]='\0';
+              fbputs(writeStringBuffer1,row2,0);
+              row2++;
+              fbputs(writeStringBuffer2,row2,0);
+              row2++;
+              writeString[0] = '\0';
+              writeStringBuffer1[0]='\0';
+              writeStringBuffer2[0]='\0';
 
+           }
+           
+
+            
+            InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
+            count = 0;
          }
-         else if (flag==0){
+         else if (flag == 0){/* if a character is pressed */
            fbputchar(dispCharacter, currentRow, currentCol);
 	         writeString[count] = dispCharacter;
 	         currentCol++;
 	         count++;
 	         printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
          }
-         else{
+         else if (flag == 2) {/* if delete is pressed */
            /*Do other function here*/
          }
+         else if (flag == 3)/* if direction key is pressed
+         {
+           /* code */
+         }
+         
       }
 
       if (currentCol > MAX_PER_ROW-1 && currentRow==LOW_BOUND_THI){
