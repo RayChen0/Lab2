@@ -362,7 +362,7 @@ void *network_thread_f(void *ignored)
       ActScroll(HIG_BOUND_FIR,LOW_BOUND_FIR,MAX_PER_ROW, myBuff);
     }
   }
-  
+}
   return NULL;
 }
 
