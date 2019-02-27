@@ -329,7 +329,6 @@ int main()
           
           /* Now we show the whole message */
           
-          if (flag ==2 || flag ==5) {
                 if (strlen(writeString)<=MAX_PER_ROW) {
                   fbputs(writeString, currentRow, 0);
                 }
@@ -343,7 +342,6 @@ int main()
                   writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
                   fbputs(writeStringBuffer2,LOW_BOUND_THI,0);                          
                   }
-          }
           if (flag == 2 || flag ==3 || flag ==4 || flag == 5) {
                   fbputcursor(writeString[currentIndex], currentRow, currentCol);
           }
