@@ -159,7 +159,7 @@ int main()
                 if (row2 > LOW_BOUND_SEC) {
                   InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
                   row2 = LOW_BOUND_SEC;
-                  for(i = 0; i < 9; i++)
+                  for(i = 8; i >=0 ; i--)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
                     fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
@@ -179,7 +179,7 @@ int main()
                 if (row2 > LOW_BOUND_SEC) {
                   InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
                   row2 = LOW_BOUND_SEC;
-                  for(i = 0; i < 9; i++)
+                  for(i = 8; i >=0 ; i--)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
                     fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
@@ -197,7 +197,7 @@ int main()
                 if (row2 > LOW_BOUND_SEC) {
                   InitiateRow(HIG_BOUND_SEC,LOW_BOUND_SEC);
                   row2 = LOW_BOUND_SEC;
-                  for(i = 0; i < 9; i++)
+                  for(i = 8; i >=0 ; i--)
                   {
                     strcpy(selfBuffer[i],selfBuffer[i+1]);
                     fbputs(selfBuffer[0],HIG_BOUND_SEC + i,0);
