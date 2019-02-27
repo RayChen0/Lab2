@@ -74,6 +74,7 @@ int main()
   char selfBuffer[10][MAX_PER_ROW+1];
 
 
+  currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
     exit(1);
@@ -308,7 +309,10 @@ int main()
 
           else if (flag == 5) {/* if delete is pressed */
            /*We delete the char at current index and push chars behind it forward*/
-            if (!(currentRow == HIG_BOUND_THI && currentCol == 0)) {
+            if (!(currentRow == HIG_BOUND_THI && currentCol == 0) && currentIndex<count) {
+                currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
+
+                
                 /* remove some character from a string */
                 for( i = currentIndex; i < strlen(writeString); i++){
                   writeString[i]=writeString[i+1];
@@ -316,14 +320,7 @@ int main()
                 /* finish remove a charactor from string */
 
                 count--;
-                if (currentCol == 0 && currentRow == LOW_BOUND_THI) {
-                    currentRow = HIG_BOUND_THI;
-                    currentCol = MAX_PER_ROW-1;
-                }
-                else
-                {
-                    currentCol--;
-                }
+
                 currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
             }
           
