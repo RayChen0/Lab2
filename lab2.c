@@ -345,7 +345,7 @@ int main()
       }
     }
   }
-}
+
   /* Terminate the network thread */
   pthread_cancel(network_thread);
 
