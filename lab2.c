@@ -137,16 +137,16 @@ int main()
          if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
           dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
           if(packet.keycode[0] == memory){
-	    continue;
-	 }
-         }
-	 else if (packet.keycode[1] != 00){
-           memory = packet.keycode[1];
-	        dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
-	 }
-         else{
-           continue;
-         }
+	          continue;
+	       }
+      }
+	    else if (packet.keycode[1] != 00){
+            memory = packet.keycode[1];
+	          dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
+	    }
+      else{
+          continue;
+      }
          
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
         flag = JudgeClass(packet.keycode[0]);
@@ -288,7 +288,7 @@ int main()
             }
           }
           
-          else if (flag == 4) {/* if right direction key is pressed */
+         else if (flag == 4) {/* if right direction key is pressed */
             /* Only work when it's not on the most right of second row */
             /* Only work when it's within the range of text */
             if (!(currentRow == LOW_BOUND_THI && currentCol == MAX_PER_ROW-1) || (currentIndex<=count)) {
@@ -303,7 +303,7 @@ int main()
             }
           }
 
-          else if (flag == 5) {/* if delete is pressed */
+         else if (flag == 5) {/* if delete is pressed */
            /*We delete the char at current index and push chars behind it forward*/
             if (!(currentRow == HIG_BOUND_THI && currentCol == 0) || currentIndex<count) {
                 currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
@@ -321,8 +321,9 @@ int main()
           
           /* Now we show the whole message */
          }
-        
-        
+         else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
+	        break;
+        }
         if (strlen(writeString)<=MAX_PER_ROW) {
             fbputs(writeString, currentRow, 0);
         }
@@ -338,13 +339,9 @@ int main()
 
         currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
         fbputcursor(writeString[currentIndex], currentRow, currentCol);
-
-
-  else if (packet.keycode[0] == 0x29) { /* ESC pressed? */
-	      break;
-      }
     }
   }
+}
 
   /* Terminate the network thread */
   pthread_cancel(network_thread);
