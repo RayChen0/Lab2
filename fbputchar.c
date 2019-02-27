@@ -27,7 +27,8 @@
 struct fb_var_screeninfo fb_vinfo;
 struct fb_fix_screeninfo fb_finfo;
 unsigned char *framebuffer;
-static unsigned char font[], font2[];
+static unsigned char font[];
+unsigned char font2[];
 int j;
 
 /*
