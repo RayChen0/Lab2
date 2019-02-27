@@ -291,7 +291,7 @@ int main()
          else if (flag == 4) {/* if right direction key is pressed */
             /* Only work when it's not on the most right of second row */
             /* Only work when it's within the range of text */
-            if (!(currentRow == LOW_BOUND_THI && currentCol == MAX_PER_ROW-1) || (currentIndex<=count)) {
+            if (!(currentRow == LOW_BOUND_THI && currentCol == MAX_PER_ROW-1) || (currentIndex<count)) {
                 if (currentRow == HIG_BOUND_THI && currentCol == MAX_PER_ROW-1 ) {
                     currentRow = LOW_BOUND_THI;
                     currentCol = 0;
