@@ -100,7 +100,7 @@ void fbputchar(char c, int row, int col)
   }
 }
 
-void fbputchar(char c, int row, int col)
+void fbputcursor(char c, int row, int col)
 {
   int x, y;
   unsigned char pixels, *pixelp = font2 + FONT_HEIGHT * c;
