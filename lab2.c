@@ -69,8 +69,8 @@ int main()
   int transferred;
   char keystate[12];
   int row2=HIG_BOUND_SEC;
-  char writeStringBuffer1[MAX_PER_ROW+1];
-  char writeStringBuffer2[MAX_PER_ROW+1];
+  char writeStringBuffer1[MAX_PER_ROW];
+  char writeStringBuffer2[MAX_PER_ROW];
 
   if ((err = fbopen()) != 0) {
     fprintf(stderr, "Error: Could not open framebuffer: %d\n", err);
@@ -155,9 +155,9 @@ int main()
             }
             else{/* if length is larger than one line, split them into two lines */
                 strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
-                writeStringBuffer1[MAX_PER_ROW+1]='\0';
+                writeStringBuffer1[MAX_PER_ROW]='\0';
                 strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
-                writeStringBuffer2[strlen(writeString)-MAX_PER_ROW+1]='\0';
+                writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
                 fbputs(writeStringBuffer1,row2,0);
                 row2++;
                 fbputs(writeStringBuffer2,row2,0);
@@ -166,7 +166,7 @@ int main()
                 writeStringBuffer1[0]='\0';
                 writeStringBuffer2[0]='\0';
             }
-            InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
+            InitiateRow(HIG_BOUND_THI,LOW_BOUND_THI);
             count = 0;
             currentCol = 0;
             currentRow = HIG_BOUND_THI;
