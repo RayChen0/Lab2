@@ -272,7 +272,6 @@ int main()
                     currentCol--;
                 }
                 currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
-                currentCharacter = writeString[currentIndex];
             }
             
          }
@@ -288,7 +287,6 @@ int main()
                   currentCol--;
                 }
                   currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
-                  currentCharacter = writeString[currentIndex];
             }
           }
           
@@ -327,7 +325,6 @@ int main()
                     currentCol--;
                 }
                 currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
-                currentCharacter = writeString[currentIndex];
             }
           
           /* Now we show the whole message */
@@ -340,7 +337,7 @@ int main()
                 {
                   strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
                   writeStringBuffer1[MAX_PER_ROW]='\0';
-                  fbputs(writeStringBuffer,HIG_BOUND_THI,0);
+                  fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
                   
                   strncpy(writeStringBuffer2,writeString,strlen(writeString)-MAX_PER_ROW);
                   writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
@@ -449,7 +446,7 @@ void *network_thread_f(void *ignored)
       else{/* if length is larger than one line, split them into two lines */
           strncpy(readBuffer[readRow-HIG_BOUND_FIR],recvBuf,MAX_PER_ROW);
           readBuffer[readRow-HIG_BOUND_FIR][MAX_PER_ROW]='\0';
-          fbputs(readBuffer[row2-HIG_BOUND_FIR],readRow,0);
+          fbputs(readBuffer[readRow-HIG_BOUND_FIR],readRow,0);
           readRow++;
           /* if it reaches to the boundary, then scroll */
           if (readRow > LOW_BOUND_FIR) {
@@ -465,7 +462,7 @@ void *network_thread_f(void *ignored)
 
           strncpy(readBuffer[readRow-HIG_BOUND_FIR],recvBuf+MAX_PER_ROW,strlen(recvBuf)-MAX_PER_ROW);
           readBuffer[readRow-HIG_BOUND_FIR][strlen(recvBuf)-MAX_PER_ROW]='\0';
-          fbputs(readBuffer[row2-HIG_BOUND_FIR],readRow,0);
+          fbputs(readBuffer[readRow-HIG_BOUND_FIR],readRow,0);
           readRow++;
 
           /* if it reaches to the boundary, then scroll */
