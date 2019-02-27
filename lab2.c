@@ -181,8 +181,8 @@ int main()
 	            count++;
 	            printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
               if (currentCol==MAX_PER_ROW && currentRow==HIG_BOUND_THI) {
-                currentCol == 0;
-                currentRow == LOW_BOUND_THI;
+                currentCol = 0;
+                currentRow = LOW_BOUND_THI;
               }
            }
            else
