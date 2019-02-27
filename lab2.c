@@ -169,10 +169,12 @@ int main()
            }
             InitiateRow(HIG_BOUND_THI,HIG_BOUND_THI);
             count = 0;
+            currentCol = 0;
          }
          else if (flag == 0){/* if a character is pressed */
            fbputchar(dispCharacter, currentRow, currentCol);
 	         writeString[count] = dispCharacter;
+           writeString[count+1]='\0';
 	         currentCol++;
 	         count++;
 	         printf("count2 = %d, col2= %d, row2= %d\n", count, currentCol, currentRow);
