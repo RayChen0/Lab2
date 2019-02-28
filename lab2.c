@@ -221,6 +221,8 @@ int main()
                 /* finish scroll */
 
                 writeString[0] = '\0';
+                selfBuffer[row2-LOW_BOUND_SEC][0]='\0';
+                selfBuffer[row2-HIG_BOUND_SEC][0]='\0';
             }
             InitiateRow(HIG_BOUND_THI,LOW_BOUND_THI);
             count = 0;        /* counting the length of input string */
@@ -340,7 +342,7 @@ int main()
             writeStringBuffer1[MAX_PER_ROW]='\0';
            fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
                   
-           strncpy(writeStringBuffer2,writeString,strlen(writeString)-MAX_PER_ROW);
+           strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
            writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
            fbputs(writeStringBuffer2,LOW_BOUND_THI,0);                          
          }
