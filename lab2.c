@@ -134,6 +134,9 @@ int main()
       if (packet.keycode[0] == 0){
 	      memory1 = 0x00;
       }
+      if(packet.keycode[1] == 0){
+	      memory1 = 0x00;
+      }
       else if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow); /* Delete this line later */
       if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
