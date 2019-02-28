@@ -441,7 +441,7 @@ void *network_thread_f(void *ignored)
       fbputs(readBuffer[readRow-HIG_BOUND_FIR],readRow,0);
       readRow++;
 
-                /* if it reaches to the boundary, then scroll */
+       /* if it reaches to the boundary, then scroll */
       if (readRow > LOW_BOUND_FIR) {
           InitiateRow(HIG_BOUND_FIR,LOW_BOUND_FIR);
           readRow = LOW_BOUND_FIR;
@@ -487,7 +487,6 @@ void *network_thread_f(void *ignored)
           }
           /* finish scroll */
        }
-	  recvBuf[0] = '\0';
     }
   return NULL;
 }
