@@ -482,6 +482,7 @@ void *network_thread_f(void *ignored)
           }
           /* finish scroll */
        }
+	  recvBuf[0] = '\0';
     }
   return NULL;
 }
