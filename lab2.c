@@ -155,9 +155,7 @@ int main()
          
          
          if (flag == 1){ /* if Enter is pressed */  
-           /* Assume the string to write is less than BUFFER_SIZE */
-           write(sockfd, writeString, strlen(writeString)); /* send to server*/
-           
+		 
            /* whenever put in long string */
            /* check the length first */
             if (!strlen(writeString)) {
