@@ -137,7 +137,13 @@ int main()
       else if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow); /* Delete this line later */
       if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
-	     dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
+	     if (!packet.keycode[1] == memory1){
+	         dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
+	         memory1 = packet.keycode[1]
+	     }
+	     else{
+		  continue;
+	     }
       }
       else{
          if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
