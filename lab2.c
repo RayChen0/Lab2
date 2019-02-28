@@ -335,16 +335,19 @@ int main()
 
         InitiateRow(HIG_BOUND_THI,LOW_BOUND_THI);
         if (strlen(writeString)<=MAX_PER_ROW) {
-            fbputs(writeString, currentRow, 0);
+            fbputs(writeString, HIG_BOUND_THI, 0);
         }
         else{
             strncpy(writeStringBuffer1,writeString,MAX_PER_ROW);
             writeStringBuffer1[MAX_PER_ROW]='\0';
-           fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
+            fbputs(writeStringBuffer1,HIG_BOUND_THI,0);
+            writeStringBuffer1[0]='\0';
+
                   
            strncpy(writeStringBuffer2,writeString+MAX_PER_ROW,strlen(writeString)-MAX_PER_ROW);
            writeStringBuffer2[strlen(writeString)-MAX_PER_ROW]='\0';
-           fbputs(writeStringBuffer2,LOW_BOUND_THI,0);                          
+           fbputs(writeStringBuffer2,LOW_BOUND_THI,0); 
+           writeStringBuffer2[0]='\0';                         
          }
 
         currentIndex = MAX_PER_ROW*(currentRow-HIG_BOUND_THI)+currentCol;
