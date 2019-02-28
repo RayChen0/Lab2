@@ -139,7 +139,7 @@ int main()
       if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
 	     if (!packet.keycode[1] == memory1){
 	         dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
-	         memory1 = packet.keycode[1]
+	         memory1 = packet.keycode[1];
 	     }
 	     else{
 		  continue;
