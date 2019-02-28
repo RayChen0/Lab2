@@ -153,6 +153,7 @@ int main()
 	  }
          else if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
 	     continue;
+          }
          else{
              continue;
          }
