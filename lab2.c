@@ -134,12 +134,10 @@ int main()
       if (packet.keycode[0] == 0){
 	      memory1 = 0x00;
       }
-      if(packet.keycode[1] == 0){
-	      memory1 = 0x00;
-      }
-      else if (packet.keycode[0]!=0){
+      if (packet.keycode[2]==0){
+      if (packet.keycode[0]!=0){
 	       printf("count = %d, col= %d, row= %d\n", count, currentCol, currentRow); /* Delete this line later */
-      if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
+      }
 	     if (!packet.keycode[1] == memory1){
 	         dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
 	         memory1 = packet.keycode[1];
@@ -147,27 +145,21 @@ int main()
 	     else{
 		  continue;
 	     }
-      }
-      else{
          if (packet.keycode[1] == 00){/* we only read in when only one character key is pressed to prevent shack */
              dispCharacter = keyValue(packet.modifiers, packet.keycode[0]);
 	     memory = packet.keycode[0];
              if(packet.keycode[0] == memory1){
 	          continue;
 	       }
-          }
          else if (packet.keycode[1] != 0){
              memory1 = packet.keycode[1];
 	     dispCharacter = keyValue(packet.modifiers, packet.keycode[1]);
 	  }
-         else if(packet.keycode[0] != 0 & packet.keycode[1] != 0){
-	     continue;
-          }
          else{
              continue;
          }
        } 
-         
+      }
          /* Assume we have a function JudgeClass to judge whether it's a control or a letter, return flag=0 if it is a letter, flag!=0 if it is a function  */
         flag = JudgeClass(packet.keycode[0]);
          
