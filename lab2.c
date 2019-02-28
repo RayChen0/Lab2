@@ -447,7 +447,9 @@ void *network_thread_f(void *ignored)
     printf("%s", recvBuf);
 
     if (n<=MAX_PER_ROW) {/* if length is shorter than a single line width */
-      strcpy(readBuffer[readRow-HIG_BOUND_FIR],recvBuf);
+      for(i=0; i<n; i++){
+	      readBuffer[readRow-HIG_BOUND_FIR]=recvBuf[i];
+      }
       fbputs(readBuffer[readRow-HIG_BOUND_FIR],readRow,0);
       readRow++;
 
